@@ -6,9 +6,6 @@ var showInfo = function () {
   let urlNew =
     'http://www.' + window.getSelection().toString() + '/wp-admin/post-new.php'
 
-  //   chrome.tabs.create({
-  //     url: urlNew,
-  //   })
   window.open(urlNew, '_blank')
 }
 

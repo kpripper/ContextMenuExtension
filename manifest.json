@@ -1,0 +1,15 @@
+{
+  "name": "Extended Context Menu",
+  "action": {},
+  "description": "description",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["storage", "commands", "activeTab", "scripting", "contextMenus", "tabs"],
+  "background": {
+    "service_worker": "background.js"    
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["myscript.js"]
+  }]
+}

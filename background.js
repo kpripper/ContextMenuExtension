@@ -81,3 +81,18 @@ chrome.contextMenus.create({
 })
 
 chrome.contextMenus.onClicked.addListener(genericOnClick)
+
+const isSiteFrozenBG = (siteID) => {
+  fetch(
+    // `https://api.beget.com/api/site/isSiteFrozen?login=j15805sj&passwd=719082oOAPI&input_format=json&output_format=json&input_data={"site_id":${siteID}}`,
+    // `https://api.beget.com/api/site/isSiteFrozen?login=j15805sj&passwd=719082oOAPI&input_format=json&output_format=json&input_data={"site_id":2519625}`,
+    'https://api.beget.com/api/site/isSiteFrozen?login=j15805sj&passwd=719082oOAPI&input_format=json&output_format=json&input_data={"site_id":2519625}',
+    {
+      method: 'POST',
+    }
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(JSON.stringify(response)))
+}
+
+console.log('isSiteFrozen(2519625)', isSiteFrozenBG(2519625))

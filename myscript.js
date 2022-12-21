@@ -1,26 +1,26 @@
 console.log('myscript window.location.href', window.location.href)
 
-const onSelect = () => {
-  console.log('onSelect', window.getSelection().toString())
-}
+var elemDiv = document.createElement('div')
+elemDiv.style.cssText =
+  'position:absolute;width: 30px; height: 30px;background: gold;display: none;'
+elemDiv.classList.add('popup111')
+document.body.appendChild(elemDiv)
 
-document.body.addEventListener('select', onSelect())
+// const waitSelectEnd = () => {
+//   // console.log(document.getSelection().toString())
+// }
 
-document.body.onselect = function () {
-  myFunction
-}
+// document.addEventListener('selectionchange', waitSelectEnd)
 
-function myFunction() {
-  console.log(' myFunction Select', window.getSelection().toString())
-}
-
-document.body.addEventListener('mouseup', function (e) {
+document.body.addEventListener('mouseup', function (ev) {
   var selection
 
   if (window.getSelection) {
     selection = window.getSelection()
+    showPopup(ev, selection.toString())
   } else if (document.selection) {
     selection = document.selection.createRange()
+    showPopup(ev, selection.toString())
   }
 
   selection.toString() !== '' &&
@@ -28,11 +28,39 @@ document.body.addEventListener('mouseup', function (e) {
       '"' +
         selection.toString() +
         '" was selected at ' +
-        e.pageX +
+        ev.pageX +
         '/' +
-        e.pageY
+        ev.pageY
     )
 })
+
+const elemen = (sel, par) => (par || document).querySelector(sel)
+
+const elArea = elemen('document')
+const elemPopup = elemen('.popup111')
+
+const showPopup = (ev, text) => {
+  console.log('text', text)
+
+  text = text.replace(/\s/g, '')
+
+  if (text.length > 0) {
+    Object.assign(elemPopup.style, {
+      left: `${ev.clientX + window.scrollX - 40}px`,
+      top: `${ev.clientY + window.scrollY}px`,
+      display: `block`,
+    })
+
+    elemPopup.textContent = text.length
+    elemPopup.addEventListener('mousemove', hidePopup)
+    //console.log(elemPopup)
+  }
+}
+
+const hidePopup = () => {
+  console.log('hidePopup')
+  elemPopup.style.display = 'none'
+}
 
 // function CheckError(response) {
 //   if (response.status >= 200 && response.status <= 299) {
